@@ -13,6 +13,8 @@ import java.io.ObjectOutputStream;
 import java.util.Properties;
 
 import curso.repaso.excepciones.InsertarPersonaException;
+import curso.repaso.excepciones.SerialInputException;
+import curso.repaso.excepciones.SerialOutputException;
 
 
 
@@ -41,13 +43,7 @@ public class ListaPersonas {
 	 */
 	public ListaPersonas()
 	{
-		//TODO HAY QUE HACER UN CONSTRUCTOR
-		//RECUERDA QUE EL CONSTRUCTOR SIRVE PARA
-			//RESERVAR MEMORIA
-			//INICIALIZAR EL ESTADO DEL OBJETO Y SUS ATRIBUTOS
 		this.array_personas = new Persona [CAPACIDAD];
-		
-		
 	}
 	
 	/**
@@ -55,7 +51,7 @@ public class ListaPersonas {
 	 * @return
 	 */
 	public Persona[] getListaPersonas ()
-	{//TODO HAY QUE DEVOLVER EL ARRAY DE PERSONAS QUE CONFORMAN LA LISTA
+	{
 		return this.array_personas;
 		}
 	
@@ -67,8 +63,7 @@ public class ListaPersonas {
 	 * @return
 	 */
 	public Persona buscarPersona (String nombre)
-	{   //TODO BUSCAR PERSONA POR NOMBRE Y DEVOLVERLA
-		//SI NO ESTÁ, DEVOLVER NULO
+	{
 		Persona respuesta = null;
 		boolean encontrado = false;
 		int contador = 0;
@@ -93,8 +88,6 @@ public class ListaPersonas {
 	
 	public Persona buscarPersona (int edad)
 	{
-		//TODO BUSCAR PERSONA POR EDAD Y DEVOLVERLA
-		//SI NO ESTÁ, DEVOLVER NULO
 		Persona respuesta = null;
 		boolean encontrado = false;
 		int contador = 0;
@@ -169,7 +162,7 @@ public class ListaPersonas {
 		respuesta = true;
 		}catch (Exception e ){
 			System.out.println("Error al escribir el fichero "+properties.getProperty("destino"));
-			throw new 
+			throw new SerialOutputException(); 
 		}finally{
 			oos.close();
 		}
@@ -182,6 +175,7 @@ public class ListaPersonas {
 	 * @throws IOException 
 	 */
 	public boolean deserializar() throws IOException
+	//public boolean deserializar() throws SerialInputException
 	{
 		boolean respuesta = false;
 		FileInputStream fis = new FileInputStream("serializa.properties");
@@ -202,6 +196,7 @@ public class ListaPersonas {
 		catch (Exception e )
 		{
 			System.out.println("Error al escribir el fichero "+properties.getProperty("destino"));
+			throw new SerialInputException();
 		}
 		finally
 			{
@@ -253,8 +248,6 @@ public class ListaPersonas {
 	
 	public void mostrar()
 	{
-		//TODO MOSTRAR LA LISTA DE PERSONAS
-		// pista: ayudarse del método toString de persona
 		if (numeroPersonas()>0)
 		for (int i = 0; i < numeroPersonas(); i++) {
 			System.out.println("Persona("+(i+1)+"): "+array_personas[i].toString());
