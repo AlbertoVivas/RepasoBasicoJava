@@ -35,10 +35,10 @@ public class ListaPersonas {
 	private Persona[] array_personas;
 	
 	
+
 	/**
-	 * Es muy posible que haga falta añadir algún campo más
+	 * Nuevo constructor, sobrecargando al constructor por defecto 
 	 */
-	
 	public ListaPersonas()
 	{
 		//TODO HAY QUE HACER UN CONSTRUCTOR
@@ -50,26 +50,46 @@ public class ListaPersonas {
 		
 	}
 	
+	/**
+	 * con esto obtengo la lista de las personas
+	 * @return
+	 */
 	public Persona[] getListaPersonas ()
 	{//TODO HAY QUE DEVOLVER EL ARRAY DE PERSONAS QUE CONFORMAN LA LISTA
 		return this.array_personas;
 		}
 	
+	/**
+	 * Con este metodo nos permite buscar una persona por su nombre,
+	 * en caso de encontrarla nos devuelve el objeto persona, y en 
+	 * caso de que no nos devuelve null.
+	 * @param nombre
+	 * @return
+	 */
 	public Persona buscarPersona (String nombre)
 	{   //TODO BUSCAR PERSONA POR NOMBRE Y DEVOLVERLA
 		//SI NO ESTÁ, DEVOLVER NULO
 		Persona respuesta = null;
 		boolean encontrado = false;
 		int contador = 0;
-		while((numeroPersonas()!= 0)&&(!encontrado)&&(contador < CAPACIDAD)){
-			if(nombre.equals(array_personas[contador].getNombre())){
-				encontrado = true;
-				respuesta = array_personas[contador];
+		if((numeroPersonas()!= 0)){
+			while((!encontrado)&&(contador < CAPACIDAD)){
+				if(nombre.equals(array_personas[contador].getNombre())){
+					encontrado = true;
+					respuesta = array_personas[contador];
+				}
+				contador++;
 			}
-			contador++;
 		}
 		return respuesta;
 	}
+	/**
+	 * Con este metodo nos permite buscar una persona por su edad,
+	 * en caso de encontrarla nos devuelve el objeto persona, y en 
+	 * caso de que no nos devuelve null.
+	 * @param edad
+	 * @return
+	 */
 	
 	public Persona buscarPersona (int edad)
 	{
@@ -78,15 +98,56 @@ public class ListaPersonas {
 		Persona respuesta = null;
 		boolean encontrado = false;
 		int contador = 0;
-		while((numeroPersonas()!= 0)&&(!encontrado)&&(contador < this.array_personas.length)){
-			if(edad==(array_personas[contador].getEdad())){
-				encontrado = true;
-				respuesta = array_personas[contador];
+		if((numeroPersonas()!= 0)){
+			while((!encontrado)&&(contador < this.array_personas.length)){
+				if(edad==(array_personas[contador].getEdad())){
+					encontrado = true;
+					respuesta = array_personas[contador];
+				}
+				contador++;
 			}
-			contador++;
 		}
 		return respuesta;
 	}
+	/**
+	 * Con este metodo, busco todas las personas que tengan una edad
+	 * @param edad
+	 * @return
+	 */
+	public Persona [] buscarPersonasPorEdad(int edad){
+		Persona [] respuesta= null;		
+		Persona [] rpta_provisional = new Persona[numeroPersonas()];
+		int j = 0;
+		int numRpta = 0;
+		//busco las personas que cohinciden y las guardo en un array provisional
+		//del tamaño del numero de personas que tengo
+		for (int i = 0; i < numeroPersonas(); i++) {
+			if (edad == (array_personas[i].getEdad())) {
+				rpta_provisional[j]=array_personas[i];
+				j++;		
+			}	
+		}
+		//calculo el tamaño exacto del array para respuesta sin nulos
+		for (int i = 0; i < rpta_provisional.length; i++) {
+			if (rpta_provisional[i] != null){
+				numRpta++;
+			}
+		}
+		//creo mi respuesta
+		respuesta = new Persona [numRpta];
+		j=0;
+		//vuelco los datos en respuesta
+		for (int i = 0; i < numRpta; i++) {
+			if(rpta_provisional[i] != null){
+				respuesta[j]=rpta_provisional[i];
+			}
+		}
+		return respuesta;
+	}
+	
+	
+	
+	
 	
 	public boolean serializar () throws IOException
 	{
@@ -108,6 +169,7 @@ public class ListaPersonas {
 		respuesta = true;
 		}catch (Exception e ){
 			System.out.println("Error al escribir el fichero "+properties.getProperty("destino"));
+			throw new 
 		}finally{
 			oos.close();
 		}
