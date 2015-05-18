@@ -59,6 +59,11 @@ public class ClaseMainRepaso {
 		System.out.println(alp.toString());
 		alp.add(p);
 		System.out.println(alp.toString());
+		
+		for (Persona per : alp) {
+			System.out.println(per);
+		}
+		
 		System.out.println(lp.serializar());
 		
 		
