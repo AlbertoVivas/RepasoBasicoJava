@@ -92,6 +92,13 @@ public class ClaseMainArrayIterator {
 		
 		System.out.println(lhmmp);
 		
+		Map<String, Persona> mi_mapa = new MapToString();
+		mi_mapa.put(p1.getNombre(), p1);
+		mi_mapa.put(p2.getNombre(), p2);
+		mi_mapa.put(p3.getNombre(), p3);
+		System.out.println(mi_mapa);
+		
+		
 	}
 
 }

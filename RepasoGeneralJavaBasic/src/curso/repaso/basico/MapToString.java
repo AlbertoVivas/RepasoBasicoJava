@@ -4,6 +4,7 @@
 package curso.repaso.basico;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * @author Alberto Vivas
@@ -14,12 +15,13 @@ public class MapToString extends HashMap<String, Persona>{
 
 	String key = null;
 	Persona persona = null;
+	//private HashMap<String , Persona > hm;
 	
-	/*public MapToString(HashMap<String , Persona > hm){
+	public MapToString(){
 		
-		hm.
+		super();
 		
-	}*/
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.util.AbstractMap#toString()
@@ -28,13 +30,15 @@ public class MapToString extends HashMap<String, Persona>{
 	public String toString() {
 		// TODO Auto-generated method stub
 		//return super.toString();
+		//hm.
+		String str_dev = "";
+		Iterator i = this.entrySet().iterator();
 		
-		for (String key : ){
-			
+		while (i.hasNext())
+		{
+			str_dev = str_dev + i.next().toString()+"\n";
 		}
-		
-		
-		return "Clave: "+this.key;
+		return str_dev;
 	}
 	
 
