@@ -6,7 +6,11 @@ package curso.repaso.basico;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import curso.repaso.excepciones.EliminarPersonaException;
+import curso.repaso.excepciones.EliminarPersonasVacioException;
 import curso.repaso.excepciones.InsertarPersonaException;
+import curso.repaso.excepciones.SerialInputException;
+import curso.repaso.excepciones.SerialOutputException;
 
 /**
  * @author Alberto Vivas
@@ -33,19 +37,81 @@ public class ClaseMainRepaso {
 		Persona p = new Persona("kk", 21);
 		
 		lp.mostrar();
+		try{
 		lp.deserializar();
-		lp.mostrar();
-		System.out.println("sssxxxxssss");
-		lp.insertarPersona(p);
-		lp.mostrar();
-		lp.insertarPersona(p);
-		lp.mostrar();
-		lp.eliminarPersona(p);
-		lp.mostrar();
-		lp.insertarPersona(p);
+		}catch (SerialInputException e){}
+		
 		lp.mostrar();
 		
-		ArrayList <Persona> alp= new ArrayList<Persona>();
+		try{
+			lp.insertarPersona(p);
+			}catch (InsertarPersonaException e){}
+		
+		lp.mostrar();
+		
+		try{
+			lp.insertarPersona(p);
+			}catch (InsertarPersonaException e){}
+		
+		/*lp.mostrar();
+		
+		try{
+		lp.eliminarPersona(p);
+		}catch (EliminarPersonaException e){
+		}catch (EliminarPersonasVacioException e2){}
+	 	
+		lp.mostrar();*/
+		try{
+			lp.eliminarPersona(p);
+			}catch (EliminarPersonaException e){
+			}catch (EliminarPersonasVacioException e2){
+			}catch (NullPointerException n){}
+		/*lp.mostrar();
+		
+		try{
+		lp.insertarPersona(p);
+		}catch (InsertarPersonaException e){}
+		
+		lp.mostrar();
+		try{
+			lp.eliminarPersona(p);
+			}catch (EliminarPersonaException e){
+			}catch (EliminarPersonasVacioException e2){}
+		lp.mostrar();*/
+		p = new Persona("Alb", 30);
+		try{
+			lp.insertarPersona(p);
+			}catch (InsertarPersonaException e){}
+		
+		lp.mostrar();
+		p = new Persona("Mik", 28);
+		try{
+			lp.insertarPersona(p);
+			}catch (InsertarPersonaException e){}
+		lp.mostrar();
+		p = new Persona("Tam", 28);
+		try{
+			lp.insertarPersona(p);
+			}catch (InsertarPersonaException e){}
+		lp.mostrar();
+		p = new Persona("Iña", 35);
+		try{
+			lp.insertarPersona(p);
+			}catch (InsertarPersonaException e){}
+		lp.mostrar();
+		
+		try{
+			lp.eliminarPersona(p);
+			}catch (EliminarPersonaException e){
+			}catch (EliminarPersonasVacioException e2){}
+		lp.mostrar();
+		
+		
+		
+		
+		//usando Array list
+		/*ArrayList <Persona> alp= new ArrayList<Persona>();
+		
 		
 		alp.add(p);
 		p = new Persona("alb", 30);
@@ -62,10 +128,14 @@ public class ClaseMainRepaso {
 		
 		for (Persona per : alp) {
 			System.out.println(per);
+		}*/
+		
+		try{
+		//System.out.println(lp.serializar());
+		if (lp.serializar()){
+			System.out.println("Guardado exitosamente!!!");
 		}
-		
-		System.out.println(lp.serializar());
-		
+		}catch (SerialOutputException e){}
 		
 		
 	}

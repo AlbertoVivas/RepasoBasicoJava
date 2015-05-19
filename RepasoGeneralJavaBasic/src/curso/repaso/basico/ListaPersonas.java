@@ -5,39 +5,30 @@ package curso.repaso.basico;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
+import curso.repaso.excepciones.EliminarPersonaException;
+import curso.repaso.excepciones.EliminarPersonasVacioException;
 import curso.repaso.excepciones.InsertarPersonaException;
 import curso.repaso.excepciones.SerialInputException;
 import curso.repaso.excepciones.SerialOutputException;
-
-
 
 /**
  * @author Alberto Vivas
  *
  * 
  */
-
-//package val.examples.basic;
-
-//import val.examples.basic.exceptions.InsertarPersonaException;
-
-public class ListaPersonas {
+public class ListaPersonas implements Iterable<Persona> {
 	
 	public static final int CAPACIDAD = 10;
-
-	//private int personasNoNull = 0;
-	
 	private Persona[] array_personas;
-	
-	
-
 	/**
 	 * Nuevo constructor, sobrecargando al constructor por defecto 
 	 */
@@ -45,7 +36,7 @@ public class ListaPersonas {
 	{
 		this.array_personas = new Persona [CAPACIDAD];
 	}
-	
+
 	/**
 	 * con esto obtengo la lista de las personas
 	 * @return
@@ -68,7 +59,7 @@ public class ListaPersonas {
 		boolean encontrado = false;
 		int contador = 0;
 		if((numeroPersonas()!= 0)){
-			while((!encontrado)&&(contador < CAPACIDAD)){
+			while((!encontrado)&&(contador < numeroPersonas())){
 				if(nombre.equals(array_personas[contador].getNombre())){
 					encontrado = true;
 					respuesta = array_personas[contador];
@@ -92,7 +83,7 @@ public class ListaPersonas {
 		boolean encontrado = false;
 		int contador = 0;
 		if((numeroPersonas()!= 0)){
-			while((!encontrado)&&(contador < this.array_personas.length)){
+			while((!encontrado)&&(contador < numeroPersonas())){
 				if(edad==(array_personas[contador].getEdad())){
 					encontrado = true;
 					respuesta = array_personas[contador];
@@ -137,11 +128,7 @@ public class ListaPersonas {
 		}
 		return respuesta;
 	}
-	
-	
-	
-	
-	
+
 	public boolean serializar () throws IOException
 	{
 		//Hacer uso del fichero de propiedades serializa.properties, 
@@ -222,7 +209,7 @@ public class ListaPersonas {
 				array_personas[0]=p;
 			}
 		}else{
-			System.out.println("Capacidad limite alcanzada!!!");
+			//System.out.println("Capacidad limite alcanzada!!!");
 			throw new InsertarPersonaException();
 		}
 		
@@ -239,6 +226,13 @@ public class ListaPersonas {
 			}
 		}
 		return respuesta;
+	}
+	
+	public int getCapacidad(){
+		return this.CAPACIDAD;
+	}
+	public Persona[] getArrayPersonas(){
+		return this.array_personas;
 	}
 	
 	public boolean estaLlena()
@@ -260,12 +254,12 @@ public class ListaPersonas {
 		int contador = 0;
 		int numPer =numeroPersonas();
 		
-		System.out.println(!buscarPersona(p.getNombre()).getNombre().equals(null));
+		//System.out.println(!buscarPersona(p.getNombre()).getNombre().equals(null));
 		
 		if(numPer!=0){
 			if(!(buscarPersona(p.getNombre()).getNombre().equals(null))){
 			
-				while ((posicionBorrar ==-1)&&(contador < CAPACIDAD)) {
+				while ((posicionBorrar ==-1)&&(contador < numeroPersonas())) {
 					if(p.getNombre().equals(array_personas[contador].getNombre())){
 						posicionBorrar = contador;	
 					}	
@@ -273,6 +267,7 @@ public class ListaPersonas {
 				}
 				if (posicionBorrar == -1){
 					System.out.println("El nombre no existe!!!");
+					throw new EliminarPersonasVacioException();
 				}else{
 					int j=0;
 					for (int i = 0; i < CAPACIDAD; i++) {
@@ -287,12 +282,51 @@ public class ListaPersonas {
 				
 			}else{
 				System.out.println("No se puede borrar una persona que no existe");
+				throw new EliminarPersonaException();
 			}	
 		}else{
 			System.out.println("No hay personas que borrar");
+			throw new EliminarPersonasVacioException();
 		}
 		
 	}
+	
+	public boolean hasNext(){
+		return false;
+	}
+	public Persona next(){
+		return null;
+	}
+	public void remove(){
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#forEach(java.util.function.Consumer)
+	 */
+	@Override
+	public void forEach(Consumer<? super Persona> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
+	@Override
+	public Iterator<Persona> iterator() {
+		// TODO Auto-generated method stub
+		return new Recorrer(this);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#spliterator()
+	 */
+	@Override
+	public Spliterator<Persona> spliterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
 

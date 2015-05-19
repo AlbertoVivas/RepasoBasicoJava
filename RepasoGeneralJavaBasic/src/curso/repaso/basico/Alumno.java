@@ -3,6 +3,8 @@
  */
 package curso.repaso.basico;
 
+import curso.repaso.excepciones.NotaException;
+
 /**
  * @author Alberto Vivas
  *
