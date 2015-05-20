@@ -4,12 +4,19 @@
 package curso.repaso.basico;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
+import curso.repaso.excepciones.EliminarPersonaException;
+import curso.repaso.excepciones.EliminarPersonasVacioException;
 import curso.repaso.excepciones.InsertarPersonaException;
 import curso.repaso.excepciones.NotaException;
 
@@ -32,6 +39,7 @@ public class ClaseMainArrayIterator {
 		Persona p1 = new Persona("alb", 30);
 		Persona p2 = new Persona("mik", 28);
 		Persona p3 = new Persona("tam", 27);
+		Persona p4 = new Persona("iña", 35);
 		
 		//usando Array list
 		//ArrayList<Persona> alp = new ArrayList<Persona>();
@@ -55,10 +63,36 @@ public class ClaseMainArrayIterator {
 			}catch (NullPointerException n){}
 		lp.mostrar();
 		Iterator<Persona> ip = lp.iterator();
-		
+		System.out.println("iterator");
 		while(ip.hasNext()){
-			ip.next().toString();
+			System.out.println(ip.next().toString());
 		}
+		try{
+		ip.remove();
+		}catch(EliminarPersonaException e){
+		}catch(EliminarPersonasVacioException e1){
+		}catch(NullPointerException n){}
+		
+		ip = lp.iterator();
+		while(ip.hasNext()){
+			System.out.println(ip.next().toString());
+		}
+		try{
+			ip.remove();
+			}catch(EliminarPersonaException e){
+			}catch(EliminarPersonasVacioException e1){
+			}catch(NullPointerException n){}
+			
+			ip = lp.iterator();
+			while(ip.hasNext()){
+				System.out.println(ip.next().toString());
+			}
+		
+		System.out.println("fin iterator");
+		
+		
+		
+		
 		Persona p = new Persona("kk", 999);
 		Map <String, Persona> mapaPersonas = new HashMap<String, Persona>();
 		mapaPersonas.put(p.getNombre(),p);
@@ -98,6 +132,29 @@ public class ClaseMainArrayIterator {
 		mi_mapa.put(p3.getNombre(), p3);
 		System.out.println(mi_mapa);
 		
+		
+		Set<Persona> tsp = new TreeSet<Persona>();
+		tsp.add(p1);
+		System.out.println(tsp);
+		tsp.add(p2);
+		System.out.println(tsp);
+		tsp.add(p3);
+		System.out.println(tsp);
+		tsp.add(p4);
+		System.out.println(tsp);
+		
+		System.out.println("Collections");
+		ArrayList<Persona> alp = new ArrayList<Persona>();
+		alp.add(p1);
+		alp.add(p2);
+		alp.add(p3);
+		alp.add(p4);
+		System.out.println(alp);
+		
+		Collections.sort(alp, new OrdenarPorNombre());
+		System.out.println(alp);
+		Collections.sort(alp, new OrdenarPorEdad());
+		System.out.println(alp);
 		
 	}
 

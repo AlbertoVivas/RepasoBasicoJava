@@ -291,15 +291,7 @@ public class ListaPersonas implements Iterable<Persona> {
 		
 	}
 	
-	public boolean hasNext(){
-		return false;
-	}
-	public Persona next(){
-		return null;
-	}
-	public void remove(){
-		
-	}
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Iterable#forEach(java.util.function.Consumer)

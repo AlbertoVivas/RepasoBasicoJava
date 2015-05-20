@@ -37,6 +37,8 @@ public class Recorrer implements Iterator<Persona>{
 	@Override
 	public boolean hasNext() {
 		// TODO Auto-generated method stub
+		//System.out.println("hasNext, puntero: "+this.puntero+"N_per: "+listaPersona.numeroPersonas());
+		//System.out.println("rpta hasnext: "+(this.puntero < listaPersona.numeroPersonas()));
 		return this.puntero < listaPersona.numeroPersonas();
 	}
 
@@ -49,7 +51,10 @@ public class Recorrer implements Iterator<Persona>{
 		Persona rpta = null;
 		
 		rpta = this.listaPersona.getArrayPersonas()[this.puntero];
-		puntero++;
+		if(hasNext())
+		{
+			puntero++;
+			}
 		
 		return rpta;
 	}
@@ -60,8 +65,20 @@ public class Recorrer implements Iterator<Persona>{
 	@Override
 	public void remove() {
 		// TODO Auto-generated method stub
-		this.listaPersona.eliminarPersona(this.listaPersona.getArrayPersonas()[this.puntero]);
+		System.out.println("entre en remove");
+		System.out.println("puntero"+puntero);
 		puntero--;
+		if((this.puntero>=0)&&(listaPersona.numeroPersonas()>0)){
+		this.listaPersona.eliminarPersona(this.listaPersona.getArrayPersonas()[this.puntero]);
+		System.out.println("removed");
+			if(this.puntero>0){
+				this.puntero--;
+			}else{
+				System.out.println("puntero a 0");
+			}
+		}else{
+			System.out.println("Recorrer no puede borrar, puntero:"+puntero+" nper: "+listaPersona.numeroPersonas());
+		}
 	}
 
 }

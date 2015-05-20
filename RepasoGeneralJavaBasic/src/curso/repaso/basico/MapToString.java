@@ -12,20 +12,11 @@ import java.util.Iterator;
  * 
  */
 public class MapToString extends HashMap<String, Persona>{
-
-	String key = null;
-	Persona persona = null;
-	//private HashMap<String , Persona > hm;
 	
 	public MapToString(){
-		
 		super();
-		
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.util.AbstractMap#toString()
-	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

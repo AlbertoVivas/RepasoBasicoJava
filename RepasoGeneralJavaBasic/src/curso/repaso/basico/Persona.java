@@ -12,7 +12,7 @@ package curso.repaso.basico;
 //package val.examples.basic;
 import java.io.Serializable;
 
-public class Persona implements Serializable {
+public class Persona implements Serializable, Comparable<Persona> {
 	
 	private int edad;
 	private String nombre;
@@ -46,6 +46,28 @@ public class Persona implements Serializable {
 	@Override
 	public String toString() {
 		return "nombre: "+this.nombre + " edad:" + this.edad;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Persona arg0) {
+		// TODO Auto-generated method stub
+		int respuesta = 0;
+		
+		if (this.edad > arg0.getEdad()){
+			respuesta = 1;
+		}else{
+			if(this.edad < arg0.getEdad()){
+				respuesta = -1;
+			}else{// this.edad == arg0.getEdad()
+				respuesta = 0;
+			}
+		}
+		
+		return respuesta;
 	}
 	
 	
