@@ -45,7 +45,8 @@ public class Persona implements Serializable, Comparable<Persona> {
 	
 	@Override
 	public String toString() {
-		return "nombre: "+this.nombre + " edad:" + this.edad;
+		//return "nombre: "+this.nombre + " edad:" + this.edad;
+		return this.nombre+" "+this.edad;
 	}
 
 
