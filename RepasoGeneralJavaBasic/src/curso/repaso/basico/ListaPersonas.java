@@ -14,6 +14,8 @@ import java.util.Properties;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import org.apache.log4j.Logger;
+
 import curso.repaso.excepciones.EliminarPersonaException;
 import curso.repaso.excepciones.EliminarPersonasVacioException;
 import curso.repaso.excepciones.InsertarPersonaException;
@@ -27,6 +29,7 @@ import curso.repaso.excepciones.SerialOutputException;
  */
 public class ListaPersonas implements Iterable<Persona> {
 	
+	private final static Logger log = Logger.getLogger("mylog");
 	public static final int CAPACIDAD = 10;
 	private Persona[] array_personas;
 	/**
@@ -35,6 +38,7 @@ public class ListaPersonas implements Iterable<Persona> {
 	public ListaPersonas()
 	{
 		this.array_personas = new Persona [CAPACIDAD];
+		log.trace("Invocado constructor de Lista persona");
 	}
 
 	/**
@@ -67,6 +71,7 @@ public class ListaPersonas implements Iterable<Persona> {
 				contador++;
 			}
 		}
+		log.trace("Persona buscada!!!");
 		return respuesta;
 	}
 	/**
@@ -149,6 +154,7 @@ public class ListaPersonas implements Iterable<Persona> {
 		respuesta = true;
 		}catch (Exception e ){
 			System.out.println("Error al escribir el fichero "+properties.getProperty("destino"));
+			log.error("Error al escribir el fichero");
 			throw new SerialOutputException(); 
 		}finally{
 			oos.close();
@@ -183,6 +189,7 @@ public class ListaPersonas implements Iterable<Persona> {
 		catch (Exception e )
 		{
 			System.out.println("Error al escribir el fichero "+properties.getProperty("destino"));
+			log.error("Error al escribir el fichero");
 			throw new SerialInputException();
 		}
 		finally
@@ -199,17 +206,19 @@ public class ListaPersonas implements Iterable<Persona> {
 		if (!estaLlena()){//si tengo espacio para insertar	
 			if(numeroPersonas()!=0){
 				if(buscarPersona(p.getNombre())== null) {
-					System.out.println("num de per "+numeroPersonas() );
+					//System.out.println("num de per "+numeroPersonas() );
 					array_personas[numeroPersonas()]=p;
 				
 				}else{
 					System.out.println("Ya existe esa persona");
+					log.debug("Ya existe esa persona");
 				}
 			}else{
 				array_personas[0]=p;
 			}
 		}else{
 			//System.out.println("Capacidad limite alcanzada!!!");
+			log.error("Numero de personas excecido. Máximo");
 			throw new InsertarPersonaException();
 		}
 		
@@ -282,10 +291,12 @@ public class ListaPersonas implements Iterable<Persona> {
 				
 			}else{
 				System.out.println("No se puede borrar una persona que no existe");
+				log.debug("No se puede borrar una persona que no existe");
 				throw new EliminarPersonaException();
 			}	
 		}else{
 			System.out.println("No hay personas que borrar");
+			log.debug("No hay personas que borrar");
 			throw new EliminarPersonasVacioException();
 		}
 		
